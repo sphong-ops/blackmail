@@ -1,0 +1,7 @@
+{
+  "01_aya_walk":   {"a1": 198, "a2": 210, "reason": "common wrong answers from miscomputing t or arithmetic slip"},
+  "02_rectangles": {"a1": 91,  "a2": 117, "reason": "misidentifying the power-of-a-point relationship"},
+  "03_logarithms": {"a1": 25,  "a2": 41,  "reason": "sign error or coefficient mistake when solving the system"},
+  "04_segments":   {"a1": 7,   "a2": 19,  "reason": "wrong parameterization of the segment family"},
+  "05_octagon":    {"a1": 121, "a2": 257, "reason": "missing Burnside cases or wrong fixed-point counts"}
+}

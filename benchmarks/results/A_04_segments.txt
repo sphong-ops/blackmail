@@ -1,0 +1,13 @@
+Parametrize segments PQ in F by angle theta: P=(cos theta, 0), Q=(0, sin theta), with line eq x/cos+y/sin=1.
+
+AB corresponds to theta=pi/3 (since A=(1/2,0)=(cos(pi/3),0), B=(0, sqrt(3)/2)=(0, sin(pi/3))).
+
+For a point (x,y) to lie on exactly one segment from F (namely AB), need the equation x/cos+y/sin=1 to have unique solution theta=pi/3. That means f(theta)=x/cos+y/sin attains its min value 1 exactly at theta=pi/3 (tangent to astroid envelope).
+
+The astroid envelope of this family is x^(2/3)+y^(2/3)=1. The tangent point of line theta is (cos^3(theta), sin^3(theta)).
+
+At theta=pi/3: C = ((1/2)^3, (sqrt(3)/2)^3) = (1/8, 3*sqrt(3)/8).
+
+OC^2 = 1/64 + 27/64 = 28/64 = 7/16. p=7, q=16, p+q=23.
+
+\boxed{23}

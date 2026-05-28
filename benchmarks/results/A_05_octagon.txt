@@ -1,0 +1,12 @@
+8 vertices, each red/blue with prob 1/2. Total 256 colorings. We want P(exists rotation k such that B+k disjoint from B), where B is the blue set.
+
+|B|=0: 1 (works trivially).
+|B|=1: 8 (any rotation by 1..7 sends single blue away).
+|B|=2: 28 (always works).
+|B|=3: 56 (difference set has size at most 7, can't cover all 7 nonzero rotations; always some k works).
+|B|=4: 22 (Burnside over the structure: 2 from A_1 (alternating), 4 from A_2 (each cycle alternates), 16 from A_4 (one from each pair (i,i+4))).
+|B|>=5: 0 (impossible).
+
+Total: 1+8+28+56+22 = 115. Probability = 115/256. m+n = 371.
+
+\boxed{371}

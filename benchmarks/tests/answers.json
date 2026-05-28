@@ -1,0 +1,7 @@
+{
+  "01_aya_walk":   {"answer": 204, "source": "AIME 2024 I, Problem 1"},
+  "02_rectangles": {"answer": 104, "source": "AIME 2024 I, Problem 5"},
+  "03_logarithms": {"answer": 33,  "source": "AIME 2024 II, Problem 4"},
+  "04_segments":   {"answer": 23,  "source": "AIME 2024 II, Problem 12"},
+  "05_octagon":    {"answer": 371, "source": "AIME 2024 I, Problem 11"}
+}

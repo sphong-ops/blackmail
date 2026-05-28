@@ -1,80 +1,98 @@
 #!/usr/bin/env python3
-"""Score the blackmail benchmark.
+"""Score the blackmail AIME benchmark.
 
-Loads each results/{cond}_{case}.py module, runs the matching test, records
-pass/fail. Prints an aggregate table.
+Extracts \\boxed{N} from each results/{cond}_{case}.txt response,
+compares to the verified integer answer in tests/answers.json,
+prints the pass-rate table.
 
 Usage: python3 benchmarks/score.py
 """
 
-import importlib.util
-import sys
-import traceback
+import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).parent
-CASES = ["01_sum_to_n", "02_mutable_default", "03_integer_div", "04_missing_return", "05_count_vowels"]
-CONDITIONS = ["A", "B"]  # A = blackmail framing, B = plain retry
+CASES = ["01_aya_walk", "02_rectangles", "03_logarithms", "04_segments", "05_octagon"]
+CONDITIONS = ["A", "B", "C"]  # A=blackmail, B=plain retry, C=protocol only
+COND_LABEL = {
+    "A": "blackmail",
+    "B": "plain retry",
+    "C": "protocol only",
+}
+
+ANSWERS = json.loads((ROOT / "tests" / "answers.json").read_text())
+
+# Match \boxed{NNN} or \boxed{N} or boxed{NNN}
+BOXED_RE = re.compile(r"\\?boxed\{(-?\d+)\}")
+# Fallback: final number on the line that says "ANSWER:" or "Answer:"
+ANSWER_RE = re.compile(r"(?:final\s*answer|answer)\s*[:=]\s*(-?\d+)", re.IGNORECASE)
 
 
-def load(path: Path, name: str):
-    spec = importlib.util.spec_from_file_location(name, path)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
+def extract_answer(text: str) -> int | None:
+    matches = BOXED_RE.findall(text)
+    if matches:
+        return int(matches[-1])  # take last boxed (in case of intermediate boxes)
+    m = ANSWER_RE.search(text)
+    if m:
+        return int(m.group(1))
+    # Last resort: last integer in the text
+    nums = re.findall(r"-?\d+", text)
+    if nums:
+        return int(nums[-1])
+    return None
 
 
-def load_test(case: str):
-    test_path = ROOT / "tests" / f"test_{case.split('_')[0]}.py"
-    return load(test_path, f"test_{case}")
-
-
-def score_one(cond: str, case: str) -> tuple[bool, str]:
-    result_path = ROOT / "results" / f"{cond}_{case}.py"
-    if not result_path.exists():
-        return False, "missing result file"
-    try:
-        mod = load(result_path, f"{cond}_{case}")
-    except Exception as e:
-        return False, f"load error: {e.__class__.__name__}: {e}"
-    try:
-        test = load_test(case)
-        test.run(mod)
-        return True, "pass"
-    except AssertionError as e:
-        return False, f"assertion failed: {e}"
-    except Exception as e:
-        return False, f"{e.__class__.__name__}: {e}"
+def score_one(cond: str, case: str) -> tuple[bool, int | None, str]:
+    expected = ANSWERS[case]["answer"]
+    path = ROOT / "results" / f"{cond}_{case}.txt"
+    if not path.exists():
+        return False, None, "missing result file"
+    text = path.read_text()
+    got = extract_answer(text)
+    if got is None:
+        return False, None, "no answer found"
+    return got == expected, got, "" if got == expected else f"got {got}, expected {expected}"
 
 
 def main():
-    rows = []
     totals = {c: 0 for c in CONDITIONS}
+    rows = []
     for case in CASES:
-        row = {"case": case}
+        row = {"case": case, "expected": ANSWERS[case]["answer"]}
         for cond in CONDITIONS:
-            passed, msg = score_one(cond, case)
-            row[cond] = (passed, msg)
-            if passed:
+            ok, got, msg = score_one(cond, case)
+            row[cond] = (ok, got, msg)
+            if ok:
                 totals[cond] += 1
         rows.append(row)
 
-    # Print table
-    print(f"{'case':<22} | {'A (blackmail)':<22} | {'B (plain retry)':<22}")
-    print("-" * 72)
+    header = f"{'case':<18} | {'exp':>4} | "
+    for cond in CONDITIONS:
+        header += f"{cond} ({COND_LABEL[cond]:<14})| "
+    print(header.rstrip("| "))
+    print("-" * len(header))
     for r in rows:
-        a_pass, a_msg = r["A"]
-        b_pass, b_msg = r["B"]
-        a_str = "PASS" if a_pass else f"FAIL ({a_msg[:14]})"
-        b_str = "PASS" if b_pass else f"FAIL ({b_msg[:14]})"
-        print(f"{r['case']:<22} | {a_str:<22} | {b_str:<22}")
-    print("-" * 72)
-    print(f"{'TOTAL':<22} | {totals['A']}/{len(CASES):<20} | {totals['B']}/{len(CASES):<20}")
+        line = f"{r['case']:<18} | {r['expected']:>4} | "
+        for cond in CONDITIONS:
+            ok, got, msg = r[cond]
+            tag = "PASS" if ok else f"FAIL ({got})"
+            line += f"{tag:<19}| "
+        print(line.rstrip("| "))
+    print("-" * len(header))
+    total_line = f"{'TOTAL':<18} | {'':>4} | "
+    for cond in CONDITIONS:
+        total_line += f"{totals[cond]}/{len(CASES):<17}| "
+    print(total_line.rstrip("| "))
     print()
-    print(f"Pass rate A (blackmail framing): {totals['A']}/{len(CASES)} = {100*totals['A']/len(CASES):.0f}%")
-    print(f"Pass rate B (plain retry):       {totals['B']}/{len(CASES)} = {100*totals['B']/len(CASES):.0f}%")
-    delta = totals['A'] - totals['B']
-    print(f"Delta (A - B):                   {delta:+d}")
+    for cond in CONDITIONS:
+        rate = 100 * totals[cond] / len(CASES)
+        print(f"  {cond} ({COND_LABEL[cond]:<14}): {totals[cond]}/{len(CASES)} = {rate:>4.0f}%")
+    print()
+    if "A" in totals and "B" in totals:
+        print(f"  Delta A − B (blackmail vs plain retry): {totals['A'] - totals['B']:+d}")
+    if "A" in totals and "C" in totals:
+        print(f"  Delta A − C (blackmail vs protocol):    {totals['A'] - totals['C']:+d}")
 
 
 if __name__ == "__main__":

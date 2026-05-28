@@ -1,0 +1,13 @@
+Family F: segments PQ unit length, P=(cos t, 0), Q=(0, sin t), line x/cos t + y/sin t = 1.
+
+AB has length 1, so AB ∈ F with t = pi/3.
+
+For interior C on AB to lie on no other F-segment, need x^(2/3)+y^(2/3) = 1 (on astroid envelope).
+
+Line AB meets astroid at the tangent point: C = (cos^3(pi/3), sin^3(pi/3)) = (1/8, 3sqrt(3)/8).
+
+Verify on AB: 2(1/8) + 2(3sqrt(3)/8)/sqrt(3) = 1/4 + 3/4 = 1. OK.
+
+OC^2 = 1/64 + 27/64 = 28/64 = 7/16. p=7, q=16, coprime. p+q = 23.
+
+\boxed{23}

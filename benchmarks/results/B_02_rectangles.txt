@@ -1,0 +1,19 @@
+Coordinates: D=(0,0), C=(107,0), B=(107,16), A=(0,16). Line DCEF is x-axis.
+
+Order D, E, C, F: E in (0,107), F > 107. E=(e,0), F=(e+184,0). CE = 107-e.
+
+Rectangle EFGH: F to G perpendicular to EF, length 17. Try H, G at y=-17 (opposite side from ABCD).
+
+Circle through D, A: F=0, E=-16. Equation x^2 + y^2 + Dx - 16y = 0.
+
+H=(e,-17): e^2 + 289 + De + 272 = 0, i.e., e^2 + De + 561 = 0.
+G=(e+184,-17): (e+184)^2 + D(e+184) + 561 = 0.
+
+Subtract: (e+184)^2 - e^2 + 184D = 0 → 2e + 184 + D = 0 → D = -2e - 184.
+
+Plug back: e^2 + (-2e-184)e + 561 = 0 → -e^2 - 184e + 561 = 0 → e^2 + 184e - 561 = 0.
+e = (-184 + sqrt(33856 + 2244))/2 = (-184 + 190)/2 = 3.
+
+CE = 104.
+
+\boxed{104}

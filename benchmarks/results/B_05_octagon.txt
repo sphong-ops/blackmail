@@ -1,0 +1,17 @@
+Total colorings: 256. Count B with some k giving (B+k) disjoint from B.
+
+By |B|:
+|B|=0: 1 works.
+|B|=1: 8 work.
+|B|=2: 28 work (difference set has at most 2 forbidden k's, 5 valid).
+|B|=3: 56 work (at most 6 differences, can't cover 7 nonzero rotations).
+|B|=4: need B+k = complement. Count by Burnside / direct: 22.
+  - k=1 (alternating): 2 sets
+  - k=2 (each 4-cycle alternates): 4 sets
+  - k=4 (one of each pair {i, i+4}): 16 sets
+  These are disjoint, total 22.
+|B|>=5: impossible.
+
+Total: 1+8+28+56+22 = 115. P = 115/256. m+n = 371.
+
+\boxed{371}

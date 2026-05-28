@@ -1,0 +1,16 @@
+Coordinates: D=(0,0), C=(107,0), B=(107,16), A=(0,16). EFGH along x-axis on opposite side. E=(107-t,0), F=(291-t,0) where CE=t.
+
+H=(107-t,-17), G=(291-t,-17) (rectangles on opposite sides of the line).
+
+Circle through A,D: x^2+y^2+Dx-16y=0.
+H: (107-t)^2 + 561 + D(107-t) = 0
+G: (291-t)^2 + 561 + D(291-t) = 0
+Subtract: D = 2t - 398.
+
+Sub: u=107-t. u^2 + 561 - (184+2u)u = 0 → u^2 + 184u - 561 = 0 → u=3 → t=104.
+
+Verify on circle: center (95, 8), radius^2 = 9089. A,D,H=(3,-17),G=(187,-17) all check.
+
+CE = 104.
+
+\boxed{104}

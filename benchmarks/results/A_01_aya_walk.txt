@@ -1,0 +1,38 @@
+Let me solve this carefully.
+
+Let s = walking speed (km/h), t = time in coffee shop (minutes).
+
+**Setup equations:**
+
+Walking time = 9/s hours = total time - coffee time
+
+At speed s: total time = 4 hours, so walking time = 4 - t/60 hours
+9/s = 4 - t/60
+
+At speed s+2: total time = 2 hours 24 minutes = 2.4 hours, so walking time = 2.4 - t/60 hours
+9/(s+2) = 2.4 - t/60
+
+**Subtract the two equations:**
+9/s - 9/(s+2) = 4 - 2.4 = 1.6
+9 * ((s+2) - s) / (s(s+2)) = 1.6
+18 / (s(s+2)) = 1.6
+s(s+2) = 18 / 1.6 = 11.25
+s^2 + 2s - 11.25 = 0
+
+Using quadratic formula:
+s = (-2 + sqrt(4 + 45)) / 2 = (-2 + 7) / 2 = 5/2 = 2.5
+
+So s = 2.5 km/h.
+
+**Find t:**
+9 / 2.5 = 3.6 hours = 4 - t/60
+t/60 = 0.4
+t = 24 minutes
+
+Verify with s+2 = 4.5: 9/4.5 = 2 hours. Plus 24 minutes = 2h 24min. OK.
+
+**At speed s + 1/2 = 3 km/h:**
+Walking time = 9/3 = 3 hours = 180 minutes
+Total time = 180 + 24 = 204 minutes
+
+\boxed{204}

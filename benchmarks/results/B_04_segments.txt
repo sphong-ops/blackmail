@@ -1,0 +1,11 @@
+Family F has segments PQ of unit length, P=(cos theta, 0), Q=(0, sin theta). Envelope is astroid x^(2/3)+y^(2/3)=1.
+
+AB has length 1 (sqrt(1/4+3/4)=1), corresponds to theta=pi/3.
+
+The tangent point of AB on the astroid: C = (cos^3(pi/3), sin^3(pi/3)) = (1/8, 3*sqrt(3)/8).
+
+Other points on AB are strictly inside the astroid, so each lies on AB plus one other F-segment. Only C lies on AB alone.
+
+OC^2 = (1/8)^2 + (3*sqrt(3)/8)^2 = 1/64 + 27/64 = 7/16. p+q = 7+16 = 23.
+
+\boxed{23}

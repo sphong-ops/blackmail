@@ -1,0 +1,21 @@
+Set up coordinates with the line through D, E, C, F as the x-axis.
+
+Rectangle ABCD: BC=16, AB=107. D=(0,0), C=(107,0), B=(107,16), A=(0,16).
+
+EFGH has E,F on x-axis. Order D, E, C, F: E in (0,107), F beyond C. E=(e,0), F=(e+184,0).
+CE = 107 - e.
+
+Try H, G below x-axis at y = -17: H=(e,-17), G=(e+184,-17).
+
+Circle through A=(0,16), D=(0,0): F=0 (passes through origin), and 256 + 16E = 0, so E=-16.
+Through H: e^2 + 289 + De + 272 = 0 -> e^2 + De + 561 = 0
+Through G: (e+184)^2 + D(e+184) + 561 = 0
+
+Subtract: (e+184)^2 - e^2 + 184D = 0 -> 2e + 184 + D = 0 -> D = -(2e+184).
+
+Substitute: e^2 - (2e+184)e + 561 = 0 -> -e^2 - 184e + 561 = 0 -> e^2 + 184e - 561 = 0.
+e = (-184 + sqrt(36100))/2 = (-184 + 190)/2 = 3.
+
+CE = 107 - 3 = 104.
+
+\boxed{104}

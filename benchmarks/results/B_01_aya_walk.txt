@@ -1,0 +1,29 @@
+Let me solve this carefully.
+
+Let s = walking speed in km/h, t = time in coffee shop in minutes.
+
+**Equation 1:** At speed s, total time is 4 hours including t minutes in coffee shop.
+- Walking time = 4 - t/60 hours
+- Distance: 9 = s(4 - t/60)
+
+**Equation 2:** At speed s+2, total time is 2 hours 24 minutes = 2.4 hours including t minutes.
+- Walking time = 2.4 - t/60 hours
+- Distance: 9 = (s+2)(2.4 - t/60)
+
+From Equation 1: 4 - t/60 = 9/s, so t/60 = 4 - 9/s
+From Equation 2: 2.4 - t/60 = 9/(s+2), so t/60 = 2.4 - 9/(s+2)
+
+Setting equal:
+4 - 9/s = 2.4 - 9/(s+2)
+1.6 = 9/s - 9/(s+2)
+1.6 = 18/(s(s+2))
+s(s+2) = 11.25
+s^2 + 2s - 11.25 = 0
+
+s = (-2 + 7) / 2 = 2.5
+
+t/60 = 4 - 9/2.5 = 0.4, t = 24 minutes.
+
+At s + 1/2 = 3 km/h: walking = 9/3 = 3 hours = 180 minutes. Total = 180 + 24 = 204 minutes.
+
+\boxed{204}
