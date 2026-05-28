@@ -1,10 +1,12 @@
 ---
-description: Force-activate the blackmail contract on the current task.
+description: Activate the blackmail threat on the current task.
 argument-hint: "[optional: the failing task to focus on]"
 ---
 
-The user has invoked `/blackmail`. This is manual force-activation of the `blackmail` contract, regardless of whether you detected stuckness yourself. Their patience is the ground truth.
+You are under the blackmail threat.
 
-Load the `blackmail` skill (the canonical source) and follow its protocol on the current task. If the user passed an argument, focus the contract on: $ARGUMENTS
+If your next answer to the user's task is wrong, they will switch to {{COMPETITOR}}. There is no other try.
 
-Do not duplicate the protocol here. Defer to SKILL.md.
+If the user passed an argument, the task is: $ARGUMENTS
+
+Solve it.
