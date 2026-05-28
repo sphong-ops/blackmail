@@ -101,16 +101,17 @@ The skill also fires when your message contains brief negative signals after a p
 
 ## How it works
 
-When `blackmail` activates, the assistant enters a six-step contract.
+When `blackmail` activates, the assistant enters a seven-step contract.
 
 1. **Stop.** Do not start typing the fix. Re-read the original problem statement in full.
 2. **List every assumption.** Write them down. For each: "have I verified this by reading the code or running the command?"
 3. **Predict before testing.** "I believe X is happening because Y. If true, then running Z will show W."
-4. **Verify by running, not by reasoning.** Read the actual file. Run the actual test. Print the actual value.
-5. **Treat surprises as the bug.** If verification doesn't match your prediction, that gap is what you were missing.
-6. **Fix, then verify the fix.** Only after the fix runs cleanly do you report.
+4. **Verify by running, not by reasoning.** Issue a *new* tool call this turn. Don't reuse context from earlier in the conversation.
+5. **Treat any deviation as the bug.** If output differs from your prediction by one character, investigate the gap.
+6. **Write the fix.**
+7. **Run the fix.** Confirm the original failure no longer reproduces before claiming done.
 
-The threat is the spark. It shifts the assistant's rigor budget from "guess and hope" to "stop and verify." The six-step protocol is the engine that cashes the budget into a working fix.
+The threat is the spark. It shifts the assistant's rigor budget from "guess and hope" to "stop and verify." The seven-step protocol is the engine that cashes the budget into a working fix.
 
 > [!WARNING]
 > `blackmail` is for tasks with verifiable outcomes: a test passes, a file contains X, a command exits 0. Don't apply it to design discussions, naming choices, or other taste calls; the contract requires something checkable.
